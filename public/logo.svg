@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 112" role="img" aria-labelledby="title description">
+  <title id="title">Dev Nexus Academy</title>
+  <desc id="description">The official Dev Nexus Academy symbol and wordmark.</desc>
+  <defs>
+    <linearGradient id="brand-bg" x1="8" y1="8" x2="96" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1730"/>
+      <stop offset="1" stop-color="#07101F"/>
+    </linearGradient>
+    <linearGradient id="brand-line" x1="22" y1="28" x2="85" y2="82" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#58E6C2"/>
+      <stop offset="1" stop-color="#6B8CFF"/>
+    </linearGradient>
+  </defs>
+  <path d="M56 5 101 31v50L56 107 11 81V31L56 5Z" fill="url(#brand-bg)"/>
+  <path d="M56 9 97 33v46L56 103 15 79V33L56 9Z" fill="none" stroke="#2B4368" stroke-width="3"/>
+  <path d="m45 35-18 21 18 21M67 35l18 21-18 21M47 56h18" fill="none" stroke="url(#brand-line)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="56" cy="56" r="6" fill="#F2C94C"/>
+  <circle cx="84" cy="34" r="4" fill="#58E6C2"/>
+  <g fill="#0B1730" font-family="Inter, Segoe UI, Arial, sans-serif">
+    <text x="126" y="58" font-size="43" font-weight="700" letter-spacing="-1.4">Dev Nexus</text>
+    <text x="128" y="88" font-size="20" font-weight="600" letter-spacing="7.2" fill="#426080">ACADEMY</text>
+  </g>
+</svg>

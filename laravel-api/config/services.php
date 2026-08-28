@@ -1,0 +1,57 @@
+<?php
+
+return [
+    'youtube' => [
+        'key' => env('YOUTUBE_API_KEY'),
+        'curated_courses' => [
+            [
+                'id' => 'PLDoPjvoNmBAw_t_XWUFbBX-c9MafPk9ji',
+                'title' => 'تعلّم HTML بالعربية',
+                'description' => 'مسار عربي من Elzero Web School يبدأ من أساسيات الصفحة والعناصر الدلالية.',
+                'url' => 'https://www.youtube.com/playlist?list=PLDoPjvoNmBAw_t_XWUFbBX-c9MafPk9ji',
+                'image' => null,
+                'source' => 'YouTube · Elzero',
+                'meta' => 'مسار مجاني',
+                'tag' => 'HTML',
+                'type' => 'playlist',
+                'embed_url' => 'https://www.youtube-nocookie.com/embed/videoseries?list=PLDoPjvoNmBAw_t_XWUFbBX-c9MafPk9ji',
+            ],
+            [
+                'id' => 'PLDoPjvoNmBAzjsz06gkzlSrlev53MGIKe',
+                'title' => 'تعلّم CSS بالعربية',
+                'description' => 'شرح متدرج للتنسيق والتخطيطات وبناء واجهات متجاوبة.',
+                'url' => 'https://www.youtube.com/playlist?list=PLDoPjvoNmBAzjsz06gkzlSrlev53MGIKe',
+                'image' => null,
+                'source' => 'YouTube · Elzero',
+                'meta' => 'مسار مجاني',
+                'tag' => 'CSS',
+                'type' => 'playlist',
+                'embed_url' => 'https://www.youtube-nocookie.com/embed/videoseries?list=PLDoPjvoNmBAzjsz06gkzlSrlev53MGIKe',
+            ],
+            [
+                'id' => 'PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv',
+                'title' => 'JavaScript من الصفر بالعربية',
+                'description' => 'مسار شامل يشرح JavaScript بالتدرج مع أمثلة عملية.',
+                'url' => 'https://www.youtube.com/playlist?list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv',
+                'image' => null,
+                'source' => 'YouTube · Elzero',
+                'meta' => 'مسار مجاني',
+                'tag' => 'JavaScript',
+                'type' => 'playlist',
+                'embed_url' => 'https://www.youtube-nocookie.com/embed/videoseries?list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv',
+            ],
+            [
+                'id' => 'PLfDx4cQoUNOaNyHVdV6mmF6kCzq9KTyee',
+                'title' => 'Modern React بالعربية',
+                'description' => 'مقدمة عملية إلى React الحديثة والمكوّنات والحالة.',
+                'url' => 'https://www.youtube.com/playlist?list=PLfDx4cQoUNOaNyHVdV6mmF6kCzq9KTyee',
+                'image' => null,
+                'source' => 'YouTube',
+                'meta' => 'مسار مجاني',
+                'tag' => 'React',
+                'type' => 'playlist',
+                'embed_url' => 'https://www.youtube-nocookie.com/embed/videoseries?list=PLfDx4cQoUNOaNyHVdV6mmF6kCzq9KTyee',
+            ],
+        ],
+    ],
+];

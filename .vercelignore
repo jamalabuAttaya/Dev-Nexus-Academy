@@ -1,0 +1,9 @@
+laravel-api/vendor
+laravel-api/storage/logs
+laravel-api/database/*.sqlite
+.env*
+!.env.example
+node_modules
+.next
+coverage
+*.zip

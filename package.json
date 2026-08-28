@@ -1,0 +1,41 @@
+{
+  "name": "dev-nexus-academy",
+  "version": "1.1.0",
+  "private": true,
+  "author": {
+    "name": "Jamal Abu Attaya",
+    "url": "https://jamalabuattaya-portfolio.netlify.app"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0 --port 3000",
+    "build": "node --require ./scripts/node-memory-shim.cjs ./node_modules/next/dist/bin/next build --webpack",
+    "start": "next start --hostname 0.0.0.0 --port 3000",
+    "lint": "eslint .",
+    "format": "prettier --write app lib scripts *.ts *.mjs *.json *.md",
+    "format:check": "prettier --check app lib scripts *.ts *.mjs *.json *.md",
+    "typecheck": "tsc --noEmit",
+    "verify:content": "node scripts/verify-course-catalog.mjs && node scripts/verify-roadmaps.mjs",
+    "verify:deployment": "node scripts/verify-deployment.mjs",
+    "check": "npm run format:check && npm run verify:content && npm run verify:deployment && npm run typecheck && npm run lint && npm run build"
+  },
+  "dependencies": {
+    "next": "16.3.3",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.2.1",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.3.3",
+    "prettier": "3.6.2",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3"
+  },
+  "type": "module"
+}
