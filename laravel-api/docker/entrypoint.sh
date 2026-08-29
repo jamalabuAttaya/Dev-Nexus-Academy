@@ -8,7 +8,7 @@ sed -ri "s/<VirtualHost \*:[0-9]+>/<VirtualHost *:${APP_PORT}>/" /etc/apache2/si
 
 php artisan config:cache
 php artisan route:cache
-php artisan view:cache
+
 
 if [ "${RUN_MIGRATIONS:-false}" = "true" ]; then
     php artisan migrate --force
