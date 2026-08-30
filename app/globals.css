@@ -5695,7 +5695,7 @@ footer {
     height: 6px;
     border-radius: 50%;
     left: calc(8% + (var(--particle-index) * 7.4%));
-    top: calc(10% + ((var(--particle-index) % 6) * 13%));
+    top: calc(10% + var(--particle-top-offset, 0%));
     background: rgba(255, 255, 255, 0.75);
     box-shadow: 0 0 14px rgba(111, 232, 255, 0.6);
     animation: nexus-particle calc(6s + (var(--particle-index) * 0.55s)) linear
@@ -6232,7 +6232,7 @@ footer {
     letter-spacing: 0.18em;
     text-transform: uppercase;
     left: calc(6% + (var(--glyph-index) * 14%));
-    top: calc(68% - ((var(--glyph-index) % 3) * 10%));
+    top: calc(68% - var(--glyph-top-offset, 0%));
     animation: glyphFloat calc(7s + (var(--glyph-index) * 0.8s)) ease-in-out
       infinite;
   }
@@ -6253,7 +6253,7 @@ footer {
     height: 6px;
     border-radius: 50%;
     left: calc(8% + (var(--particle-index) * 7.4%));
-    top: calc(10% + ((var(--particle-index) % 6) * 13%));
+    top: calc(10% + var(--particle-top-offset, 0%));
     background: rgba(255, 255, 255, 0.75);
     box-shadow: 0 0 14px rgba(111, 232, 255, 0.6);
     animation: nexus-particle calc(6s + (var(--particle-index) * 0.55s)) linear
@@ -6264,7 +6264,7 @@ footer {
     width: 120px;
     height: 1px;
     left: calc(5% + (var(--shard-index) * 15%));
-    top: calc(24% + ((var(--shard-index) % 4) * 14%));
+    top: calc(24% + var(--shard-top-offset, 0%));
     transform: rotate(calc(-18deg + (var(--shard-index) * 7deg)));
     background: linear-gradient(
       90deg,
@@ -6274,6 +6274,58 @@ footer {
     );
     filter: drop-shadow(0 0 10px rgba(111, 232, 255, 0.35));
     animation: shardSlide calc(8s + (var(--shard-index) * 0.7s)) linear infinite;
+  }
+
+  .motion-particles i:nth-child(6n + 1) {
+    --particle-top-offset: 0%;
+  }
+
+  .motion-particles i:nth-child(6n + 2) {
+    --particle-top-offset: 13%;
+  }
+
+  .motion-particles i:nth-child(6n + 3) {
+    --particle-top-offset: 26%;
+  }
+
+  .motion-particles i:nth-child(6n + 4) {
+    --particle-top-offset: 39%;
+  }
+
+  .motion-particles i:nth-child(6n + 5) {
+    --particle-top-offset: 52%;
+  }
+
+  .motion-particles i:nth-child(6n + 6) {
+    --particle-top-offset: 65%;
+  }
+
+  .motion-glyphs span:nth-child(3n + 1) {
+    --glyph-top-offset: 0%;
+  }
+
+  .motion-glyphs span:nth-child(3n + 2) {
+    --glyph-top-offset: 10%;
+  }
+
+  .motion-glyphs span:nth-child(3n + 3) {
+    --glyph-top-offset: 20%;
+  }
+
+  .motion-shards b:nth-child(4n + 1) {
+    --shard-top-offset: 0%;
+  }
+
+  .motion-shards b:nth-child(4n + 2) {
+    --shard-top-offset: 14%;
+  }
+
+  .motion-shards b:nth-child(4n + 3) {
+    --shard-top-offset: 28%;
+  }
+
+  .motion-shards b:nth-child(4n + 4) {
+    --shard-top-offset: 42%;
   }
 
   .motion-scan {
@@ -8302,11 +8354,7 @@ button:disabled {
   font: inherit;
   font-weight: 800;
   text-decoration: none;
-  background: linear-gradient(
-    100deg,
-    #bdff3f,
-    #49d8e9
-  );
+  background: linear-gradient(100deg, #bdff3f, #49d8e9);
   border: 0;
   border-radius: 10px;
   cursor: pointer;
@@ -8318,8 +8366,7 @@ button:disabled {
 
 .enrollment-course-grid {
   display: grid;
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -8388,7 +8435,6 @@ button:disabled {
   justify-content: flex-end;
   gap: 8px;
   flex-wrap: wrap;
-  flex-direction: column;
 }
 
 .enrollment-course-actions .enrollment-open-course {
@@ -8438,8 +8484,7 @@ button:disabled {
 
 @media (max-width: 980px) {
   .enrollment-course-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -8460,6 +8505,14 @@ button:disabled {
   .enrollment-course-footer {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .enrollment-course-actions {
+    flex-direction: column;
+  }
+
+  .enrollment-course-actions > * {
+    width: 100%;
   }
 
   .enrollment-course-footer button,
@@ -8801,12 +8854,7 @@ button:disabled {
   gap: 14px;
   color: #8da2b6;
   background:
-    radial-gradient(
-      circle,
-      rgba(80, 227, 194, 0.08),
-      transparent 52%
-    ),
-    #050d18;
+    radial-gradient(circle, rgba(80, 227, 194, 0.08), transparent 52%), #050d18;
 }
 
 .course-video-empty span {
