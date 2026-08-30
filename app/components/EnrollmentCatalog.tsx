@@ -9,14 +9,10 @@ export default function EnrollmentCatalog() {
   const { tr } = useLanguage();
 
   const [courses, setCourses] = useState<ApiCourse[]>([]);
-  const [enrolledIds, setEnrolledIds] = useState<Set<number>>(
-    () => new Set(),
-  );
+  const [enrolledIds, setEnrolledIds] = useState<Set<number>>(() => new Set());
   const [signedIn, setSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [busyCourseId, setBusyCourseId] = useState<number | null>(
-    null,
-  );
+  const [busyCourseId, setBusyCourseId] = useState<number | null>(null);
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
 
@@ -28,13 +24,10 @@ export default function EnrollmentCatalog() {
 
       academyApi.setToken(token);
 
-      const [catalogResult, dashboardResult] =
-        await Promise.allSettled([
-          academyApi.courses(),
-          token
-            ? academyApi.dashboard()
-            : Promise.resolve(null),
-        ]);
+      const [catalogResult, dashboardResult] = await Promise.allSettled([
+        academyApi.courses(),
+        token ? academyApi.dashboard() : Promise.resolve(null),
+      ]);
 
       if (cancelled) {
         return;
@@ -53,10 +46,7 @@ export default function EnrollmentCatalog() {
         );
       }
 
-      if (
-        dashboardResult.status === "fulfilled" &&
-        dashboardResult.value
-      ) {
+      if (dashboardResult.status === "fulfilled" && dashboardResult.value) {
         const ids = dashboardResult.value.enrollments.map(
           (item) => item.course.id,
         );
@@ -102,10 +92,7 @@ export default function EnrollmentCatalog() {
       setError(
         requestError instanceof Error
           ? requestError.message
-          : tr(
-              "تعذر الالتحاق بالدورة.",
-              "Unable to enroll in this course.",
-            ),
+          : tr("تعذر الالتحاق بالدورة.", "Unable to enroll in this course."),
       );
     } finally {
       setBusyCourseId(null);
@@ -140,10 +127,7 @@ export default function EnrollmentCatalog() {
           </span>
 
           <h2 id="enrollment-catalog-title">
-            {tr(
-              "دورات مرتبطة بحسابك",
-              "Courses connected to your account",
-            )}
+            {tr("دورات مرتبطة بحسابك", "Courses connected to your account")}
           </h2>
 
           <p>
@@ -155,50 +139,31 @@ export default function EnrollmentCatalog() {
         </div>
 
         {!signedIn && (
-          <Link
-            className="enrollment-sign-in"
-            href="/account"
-          >
-            {tr(
-              "سجّل الدخول للالتحاق",
-              "Sign in to enroll",
-            )}
+          <Link className="enrollment-sign-in" href="/account">
+            {tr("سجّل الدخول للالتحاق", "Sign in to enroll")}
           </Link>
         )}
       </div>
 
       {notice && (
-        <div
-          className="enrollment-notice"
-          role="status"
-          aria-live="polite"
-        >
+        <div className="enrollment-notice" role="status" aria-live="polite">
           {notice}
         </div>
       )}
 
       {error && (
-        <div
-          className="enrollment-error"
-          role="alert"
-        >
+        <div className="enrollment-error" role="alert">
           {error}
         </div>
       )}
 
       {loading ? (
         <p className="enrollment-loading">
-          {tr(
-            "جارٍ تحميل الدورات…",
-            "Loading courses…",
-          )}
+          {tr("جارٍ تحميل الدورات…", "Loading courses…")}
         </p>
       ) : courses.length === 0 ? (
         <p className="enrollment-loading">
-          {tr(
-            "لا توجد دورات متاحة حاليًا.",
-            "No courses are available yet.",
-          )}
+          {tr("لا توجد دورات متاحة حاليًا.", "No courses are available yet.")}
         </p>
       ) : (
         <div className="enrollment-course-grid">
@@ -207,10 +172,7 @@ export default function EnrollmentCatalog() {
             const busy = busyCourseId === course.id;
 
             return (
-              <article
-                className="enrollment-course-card"
-                key={course.id}
-              >
+              <article className="enrollment-course-card" key={course.id}>
                 <div className="enrollment-course-meta">
                   <span>{course.category}</span>
                   <span>{levelLabel(course.level)}</span>
@@ -221,47 +183,42 @@ export default function EnrollmentCatalog() {
                 <p>{course.description}</p>
 
                 <div className="enrollment-course-footer">
-                  <div>
+                  <div className="enrollment-course-facts">
                     <span>
-                      {course.lessons_count ?? 0}{" "}
-                      {tr("دروس", "lessons")}
+                      {course.lessons_count ?? 0} {tr("دروس", "lessons")}
                     </span>
 
-                    <span>
-                      {durationLabel(
-                        course.duration_minutes,
-                      )}
-                    </span>
+                    <span>{durationLabel(course.duration_minutes)}</span>
                   </div>
 
-                  {signedIn ? (
-                    <button
-                      type="button"
-                      disabled={enrolled || busy}
-                      onClick={() => {
-                        void enroll(course.id);
-                      }}
+                  <div className="enrollment-course-actions">
+                    <Link
+                      className="enrollment-open-course"
+                      href={`/courses/${course.slug}`}
                     >
-                      {enrolled
-                        ? tr("ملتحق", "Enrolled")
-                        : busy
-                          ? tr(
-                              "جارٍ الالتحاق…",
-                              "Enrolling…",
-                            )
-                          : tr(
-                              "التحاق بالدورة",
-                              "Enroll",
-                            )}
-                    </button>
-                  ) : (
-                    <Link href="/account">
-                      {tr(
-                        "تسجيل الدخول",
-                        "Sign in",
-                      )}
+                      {tr("فتح الدورة", "Open course")}
                     </Link>
-                  )}
+
+                    {signedIn ? (
+                      <button
+                        type="button"
+                        disabled={enrolled || busy}
+                        onClick={() => {
+                          void enroll(course.id);
+                        }}
+                      >
+                        {enrolled
+                          ? tr("ملتحق", "Enrolled")
+                          : busy
+                            ? tr("جارٍ الالتحاق…", "Enrolling…")
+                            : tr("التحاق بالدورة", "Enroll")}
+                      </button>
+                    ) : (
+                      <Link href="/account">
+                        {tr("تسجيل الدخول", "Sign in")}
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </article>
             );

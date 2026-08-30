@@ -142,7 +142,14 @@ export default function AccountPortal() {
                   <article key={enrollment.id}>
                     <div>
                       <small>{enrollment.course.level}</small>
-                      <strong>{enrollment.course.title}</strong>
+                      <strong>
+                        <Link
+                          className="dashboard-course-link"
+                          href={`/courses/${enrollment.course.slug}`}
+                        >
+                          {enrollment.course.title}
+                        </Link>
+                      </strong>
                     </div>
                     <span>{enrollment.progress_percent}%</span>
                     <i>

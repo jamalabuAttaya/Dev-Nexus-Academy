@@ -245,30 +245,33 @@ export default function Home() {
             <span />
             <span />
           </button>
-
           <div className={`nav-links ${menuOpen ? "is-open" : ""}`}>
-            <a href="/courses" onClick={() => setMenuOpen(false)}>
+            <Link href="/courses" onClick={() => setMenuOpen(false)}>
               {tr("الكورسات والفيديو", "Courses & video")}
-            </a>
-            <a href="/books" onClick={() => setMenuOpen(false)}>
+            </Link>
+
+            <Link href="/books" onClick={() => setMenuOpen(false)}>
               {tr("مكتبة الكتب", "Free books")}
-            </a>
-            <a href="/articles" onClick={() => setMenuOpen(false)}>
+            </Link>
+
+            <Link href="/articles" onClick={() => setMenuOpen(false)}>
               {tr("المقالات", "Articles")}
-            </a>
-            <a href="/roadmaps" onClick={() => setMenuOpen(false)}>
+            </Link>
+
+            <Link href="/roadmaps" onClick={() => setMenuOpen(false)}>
               {tr("خرائط الطريق", "Roadmaps")}
-            </a>
-            <a href="/about" onClick={() => setMenuOpen(false)}>
+            </Link>
+
+            <Link href="/about" onClick={() => setMenuOpen(false)}>
               {tr("عن المنصة", "About")}
-            </a>
+            </Link>
           </div>
 
           <div className="nav-actions">
             <LanguageSwitch compact />
-            <a className="text-button" href="/account">
+            <Link className="text-button" href="/account">
               {tr("حسابي", "My account")}
-            </a>
+            </Link>
             <button
               className="button button-small"
               type="button"
@@ -304,9 +307,9 @@ export default function Home() {
               )}
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href="/courses">
+              <Link className="button button-primary" href="/courses">
                 {tr("ابدأ الاستكشاف", "Start exploring")} <ArrowIcon />
-              </a>
+              </Link>
               <button
                 className="video-button"
                 type="button"
@@ -832,12 +835,14 @@ export default function Home() {
             </p>
           </div>
           <div className="cta-actions">
-            <a className="button button-primary" href="/courses">
+            <Link className="button button-primary" href="/courses">
               {tr("استكشف الكورسات", "Explore courses")} <ArrowIcon />
-            </a>
-            <a className="button button-ghost" href="/roadmaps">
+            </Link>
+
+            <Link className="button button-ghost" href="/roadmaps">
               {tr("اختر خريطة طريق", "Choose a roadmap")}
-            </a>
+            </Link>
+
             <small>
               {tr(
                 "محتوى مجاني ومصادر موثقة",
@@ -904,9 +909,9 @@ export default function Home() {
               </span>
               <span>{tr("مسار منتقى", "Curated path")}</span>
             </div>
-            <a className="button button-primary modal-cta" href="/courses">
+            <Link className="button button-primary modal-cta" href="/courses">
               {tr("افتح مركز الكورسات", "Open the course center")} <ArrowIcon />
-            </a>
+            </Link>
             <small>
               {tr(
                 "الدورات وقوائم التشغيل تعمل داخل مركز الكورسات مع إظهار المصدر الأصلي.",
