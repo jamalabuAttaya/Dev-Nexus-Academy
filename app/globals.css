@@ -4387,7 +4387,6 @@ footer {
     #000 75%,
     transparent
   );
-  animation: gridGlide 18s linear infinite;
 }
 .hero-inner,
 .trust-strip,
@@ -5116,11 +5115,7 @@ footer {
     transform: translateX(120%);
   }
 }
-@keyframes gridGlide {
-  to {
-    background-position: 54px 54px;
-  }
-}
+
 @keyframes orbitSpin {
   to {
     transform: rotate(360deg);
