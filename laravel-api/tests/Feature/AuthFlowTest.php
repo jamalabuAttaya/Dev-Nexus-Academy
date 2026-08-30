@@ -22,9 +22,17 @@ class AuthFlowTest extends TestCase
         $registration
             ->assertCreated()
             ->assertJsonPath('user.email', 'learner@example.com')
-            ->assertJsonStructure(['user' => ['id', 'name', 'email'], 'token']);
+            ->assertJsonStructure([
+                'user' => ['id', 'name', 'email'],
+                'token',
+            ]);
 
-        $token = $registration->json('token');
+        $token = (string) $registration->json('token');
+        $tokenId = (int) explode('|', $token, 2)[0];
+
+        $this->assertDatabaseHas('personal_access_tokens', [
+            'id' => $tokenId,
+        ]);
 
         $this->withToken($token)
             ->getJson('/api/v1/dashboard')
@@ -33,7 +41,17 @@ class AuthFlowTest extends TestCase
 
         $this->withToken($token)
             ->postJson('/api/v1/auth/logout')
-            ->assertOk();
+            ->assertOk()
+            ->assertJsonPath('message', 'تم تسجيل الخروج بنجاح.');
+
+        $this->assertDatabaseMissing('personal_access_tokens', [
+            'id' => $tokenId,
+        ]);
+
+        // Laravel may retain the resolved Sanctum guard between requests
+        // during a feature test. Forget it so the deleted token is checked
+        // again exactly as it would be in a new production request.
+        $this->app['auth']->forgetGuards();
 
         $this->withToken($token)
             ->getJson('/api/v1/dashboard')
@@ -47,6 +65,8 @@ class AuthFlowTest extends TestCase
             'email' => 'learner@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
-        ])->assertUnprocessable()->assertJsonValidationErrors('password');
+        ])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('password');
     }
 }
