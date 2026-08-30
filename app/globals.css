@@ -1257,6 +1257,7 @@ h2 em {
   height: 64px;
   border: 1px solid rgba(255, 255, 255, 0.17);
   background: var(--ink);
+  color: #b8c5cf;
   display: grid;
   place-items: center;
   font: 700 13px monospace;
@@ -1422,10 +1423,10 @@ h2 em {
   font-size: 12px;
 }
 .mentor-list article > span {
-  font: 11px monospace;
-  color: #587064;
-  background: #e9eee9;
   padding: 7px 10px;
+  color: #344b40;
+  background: #e9eee9;
+  font: 11px monospace;
 }
 
 .cta-section {
@@ -5364,14 +5365,11 @@ footer {
   }
   @keyframes nexusReveal {
     from {
-      opacity: 0.1;
-      transform: translateY(38px) scale(0.975);
-      filter: blur(4px);
+      transform: translateY(28px) scale(0.985);
     }
+
     to {
-      opacity: 1;
       transform: translateY(0) scale(1);
-      filter: blur(0);
     }
   }
 }
@@ -7087,7 +7085,7 @@ button:disabled {
 
 .site-footer {
   padding: 0;
-  color: #84919b;
+  color: #aeb9c2;
   background: #07111a;
   border-top: 1px solid rgba(255, 255, 255, 0.09);
 }
@@ -7126,7 +7124,7 @@ button:disabled {
 .footer-copyright {
   grid-area: copyright;
   justify-self: end;
-  color: #62717d;
+  color: #aeb9c2;
   font: 700 9px monospace;
   direction: ltr;
 }
