@@ -21,7 +21,23 @@ export type CatalogResource = {
   tag: string;
 };
 
-type ApiEnvelope<T> = { data: T };
+export type EnrollmentResponse = {
+  message: string;
+  enrollment: {
+    id: number;
+    status: "active" | "completed";
+    progress_percent: number;
+    course: {
+      id: number;
+      title: string;
+      slug: string;
+    };
+  };
+};
+
+type ApiEnvelope<T> = {
+  data: T;
+};
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
 
@@ -36,7 +52,10 @@ export class AcademyApi {
     this.token = token;
   }
 
-  private async request<T>(path: string, init?: RequestInit): Promise<T> {
+  private async request<T>(
+    path: string,
+    init?: RequestInit,
+  ): Promise<T> {
     if (!API_BASE) {
       throw new Error("NEXT_PUBLIC_API_URL is not configured");
     }
@@ -46,14 +65,21 @@ export class AcademyApi {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        ...(this.token ? { Authorization: `Bearer ${this.token}` } : {}),
+        ...(this.token
+          ? {
+              Authorization: `Bearer ${this.token}`,
+            }
+          : {}),
         ...init?.headers,
       },
     });
 
     const payload = (await response.json().catch(() => ({
       message: "The API returned an unreadable response",
-    }))) as { message?: string };
+    }))) as {
+      message?: string;
+    };
+
     if (!response.ok) {
       throw new Error(payload.message ?? "تعذّر الاتصال بالخادم");
     }
@@ -66,15 +92,30 @@ export class AcademyApi {
     category?: string;
     level?: string;
   }) {
-    const query = new URLSearchParams(
-      Object.entries(params ?? {}).filter((entry): entry is [string, string] =>
-        Boolean(entry[1]),
-      ),
-    );
-    return this.request<ApiEnvelope<ApiCourse[]>>(`/courses?${query}`);
+    const query = new URLSearchParams();
+
+    if (params?.search) {
+      query.set("search", params.search);
+    }
+
+    if (params?.category) {
+      query.set("category", params.category);
+    }
+
+    if (params?.level) {
+      query.set("level", params.level);
+    }
+
+    const queryString = query.toString();
+    const path = queryString ? `/courses?${queryString}` : "/courses";
+
+    return this.request<ApiEnvelope<ApiCourse[]>>(path);
   }
 
-  async catalog(type: "books" | "courses" | "articles", search = "") {
+  async catalog(
+    type: "books" | "courses" | "articles",
+    search = "",
+  ) {
     return this.request<ApiEnvelope<CatalogResource[]>>(
       `/catalog/${type}?search=${encodeURIComponent(search)}`,
     );
@@ -88,20 +129,37 @@ export class AcademyApi {
   }) {
     return this.request<{
       token: string;
-      user: { id: number; name: string; email: string };
+      user: {
+        id: number;
+        name: string;
+        email: string;
+      };
     }>("/auth/register", {
       method: "POST",
-      body: JSON.stringify({ ...input, device_name: "react-web" }),
+      body: JSON.stringify({
+        ...input,
+        device_name: "react-web",
+      }),
     });
   }
 
-  async login(input: { email: string; password: string }) {
+  async login(input: {
+    email: string;
+    password: string;
+  }) {
     return this.request<{
       token: string;
-      user: { id: number; name: string; email: string };
+      user: {
+        id: number;
+        name: string;
+        email: string;
+      };
     }>("/auth/login", {
       method: "POST",
-      body: JSON.stringify({ ...input, device_name: "react-web" }),
+      body: JSON.stringify({
+        ...input,
+        device_name: "react-web",
+      }),
     });
   }
 
@@ -127,13 +185,20 @@ export class AcademyApi {
   }
 
   async logout() {
-    return this.request<{ message: string }>("/auth/logout", {
+    return this.request<{
+      message: string;
+    }>("/auth/logout", {
       method: "POST",
     });
   }
 
   async enroll(courseId: number) {
-    return this.request(`/courses/${courseId}/enroll`, { method: "POST" });
+    return this.request<EnrollmentResponse>(
+      `/courses/${courseId}/enroll`,
+      {
+        method: "POST",
+      },
+    );
   }
 
   async updateProgress(
@@ -141,10 +206,16 @@ export class AcademyApi {
     watchedSeconds: number,
     completed: boolean,
   ) {
-    return this.request(`/lessons/${lessonId}/progress`, {
-      method: "PUT",
-      body: JSON.stringify({ watched_seconds: watchedSeconds, completed }),
-    });
+    return this.request(
+      `/lessons/${lessonId}/progress`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          watched_seconds: watchedSeconds,
+          completed,
+        }),
+      },
+    );
   }
 }
 
