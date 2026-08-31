@@ -5390,43 +5390,86 @@ footer {
   .brand-word em {
     display: none;
   }
+
   .motion-core,
   .motion-orbit {
     left: 76%;
     top: 34%;
     opacity: 0.34;
   }
-  .orbit-two {
+
+  .orbit-two,
+  .motion-stream,
+  .motion-particles,
+  .motion-scan {
     display: none;
   }
-  .motion-stream {
-    opacity: 0.4;
-  }
+
   .portal-hero-grid {
     position: relative;
     z-index: 3;
   }
+
   .course-section-grid button {
     min-height: 112px;
     grid-template-columns: 76px 1fr 28px;
   }
+
   .section-motion {
     width: 72px;
     height: 72px;
   }
+
   .section-motion::after {
     width: 43px;
     height: 43px;
   }
+
   .course-section-grid .section-copy strong {
     font-size: 10px;
     white-space: normal;
   }
+
   .hero .motion-scene {
     opacity: 0.46;
   }
-  .floating-card {
-    animation-duration: 5.5s;
+
+  .brand-mark i,
+  .portal-logo::after,
+  .motion-core,
+  .motion-core::before,
+  .motion-core::after,
+  .motion-core b,
+  .motion-orbit,
+  .portal-metrics::before,
+  .hero .code-card,
+  .code-card::after,
+  .code-card pre::after,
+  .floating-card,
+  .tech-tag,
+  .success-dot,
+  .api-status i,
+  .resource-results-head small i,
+  .section-motion,
+  .section-motion::before,
+  .section-motion::after,
+  .section-motion > *,
+  .free-library-banner > span,
+  .article-reader-banner > span,
+  .resource-section::before,
+  .courses-section::before,
+  .why-section::before,
+  .developer-mark i,
+  .section-heading,
+  .course-card,
+  .feature-grid article,
+  .mentor-list article,
+  .resource-workspace,
+  .watch-stage,
+  .catalog-panel,
+  .library-shell,
+  .roadmap-explorer {
+    animation: none !important;
   }
 }
 
