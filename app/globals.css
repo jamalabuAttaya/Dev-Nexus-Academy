@@ -1273,9 +1273,9 @@ h2 em {
   font-size: 10px;
 }
 .timeline-item.done .timeline-number {
-  background: #2a9b68;
-  border-color: #2a9b68;
-  color: white;
+  background: #21784f;
+  border-color: #21784f;
+  color: #ffffff;
 }
 .timeline-item.done h3 {
   color: white;
