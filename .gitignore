@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+/laravel-api/.phpunit.result.cache
 
 # next.js
 /.next/
