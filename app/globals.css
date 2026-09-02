@@ -7563,3 +7563,214 @@ button:disabled {
     width: 100%;
   }
 }
+
+/* Homepage server/client boundary and deferred sections */
+.localized-copy-ar {
+  display: inline;
+}
+
+.localized-copy-en {
+  display: none;
+}
+
+html[lang="en"] .localized-copy-ar {
+  display: none;
+}
+
+html[lang="en"] .localized-copy-en {
+  display: inline;
+}
+
+.deferred-home-block {
+  display: block;
+}
+
+.deferred-resource-preview {
+  min-height: 620px;
+}
+
+.deferred-resource-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.deferred-resource-links a {
+  display: flex;
+  min-height: 190px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  color: #0b1722;
+  text-align: center;
+  text-decoration: none;
+  background: #ffffff;
+  border: 1px solid rgba(11, 23, 34, 0.16);
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(11, 23, 34, 0.08);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+.deferred-resource-links a:hover,
+.deferred-resource-links a:focus-visible {
+  border-color: #21784f;
+  transform: translateY(-3px);
+}
+
+.deferred-resource-links b {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  color: #071421;
+  font-size: 1.35rem;
+  background: linear-gradient(135deg, #bdff3f, #49d8e9);
+  border-radius: 16px;
+}
+
+.deferred-resource-links span {
+  font-size: 1.02rem;
+  font-weight: 850;
+}
+
+.deferred-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  color: #0b1722;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.deferred-card-link svg {
+  width: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+@supports (content-visibility: auto) {
+  .deferred-render-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
+
+  .site-footer.deferred-render-section {
+    contain-intrinsic-size: auto 620px;
+  }
+}
+
+@media (max-width: 760px) {
+  .deferred-resource-preview {
+    min-height: 760px;
+  }
+
+  .deferred-resource-links {
+    grid-template-columns: 1fr;
+  }
+
+  .deferred-resource-links a {
+    min-height: 128px;
+  }
+
+  .deferred-course-grid .course-card:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+/* Official footer layout: override the legacy footer grid areas. */
+.site-footer .footer-inner.footer-official {
+  min-height: 0;
+  padding-block: 56px 28px;
+  display: grid;
+  grid-template-columns: minmax(280px, 1.6fr) repeat(3, minmax(120px, 0.7fr));
+  grid-template-areas:
+    "brand learning platform legal"
+    "developer developer bottom bottom";
+  gap: 44px;
+  align-items: start;
+}
+
+.site-footer .footer-official .footer-brand-block {
+  grid-area: brand;
+}
+
+.site-footer .footer-official nav[aria-labelledby="footer-learning"] {
+  grid-area: learning;
+}
+
+.site-footer .footer-official nav[aria-labelledby="footer-platform"] {
+  grid-area: platform;
+}
+
+.site-footer .footer-official nav[aria-labelledby="footer-legal"] {
+  grid-area: legal;
+}
+
+.site-footer .footer-official .brand,
+.site-footer .footer-official p {
+  grid-area: auto;
+}
+
+.site-footer .footer-official .footer-column {
+  display: grid;
+  align-content: start;
+  flex-wrap: initial;
+  gap: 10px;
+}
+
+.site-footer .footer-official .footer-column a {
+  color: #9fb2c2;
+  font-size: 14px;
+}
+
+.site-footer .footer-official .developer-signature {
+  grid-area: developer;
+}
+
+.site-footer .footer-official .footer-bottom {
+  grid-area: bottom;
+  justify-content: flex-end;
+}
+
+@media (max-width: 900px) {
+  .site-footer .footer-inner.footer-official {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "brand brand"
+      "learning platform"
+      "legal legal"
+      "developer developer"
+      "bottom bottom";
+    gap: 32px;
+  }
+
+  .site-footer .footer-official .footer-bottom {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 620px) {
+  .site-footer .footer-inner.footer-official {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "brand"
+      "learning"
+      "platform"
+      "legal"
+      "developer"
+      "bottom";
+    padding-block: 42px 24px;
+    gap: 28px;
+  }
+
+  .site-footer .footer-official .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
