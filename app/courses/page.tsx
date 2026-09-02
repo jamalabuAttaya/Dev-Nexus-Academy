@@ -13,10 +13,7 @@ export const metadata: Metadata = {
 
 export default function CoursesPage() {
   return (
-    <main
-      className="portal-page"
-      id="main-content"
-    >
+    <main className="portal-page" id="main-content">
       <PortalHeader active="courses" />
 
       <PortalHero
