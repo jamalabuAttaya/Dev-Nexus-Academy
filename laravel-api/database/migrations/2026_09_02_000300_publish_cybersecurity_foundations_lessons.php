@@ -1,15 +1,79 @@
 <?php
 
-namespace Database\Seeders;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
-use App\Models\Course;
-use Illuminate\Database\Seeder;
-
-class CourseSeeder extends Seeder
+return new class extends Migration
 {
-    public function run(): void
+    public function up(): void
     {
-        $cybersecurityLessons = [
+        $courseId = DB::table('courses')
+            ->where('slug', 'cybersecurity-foundations')
+            ->value('id');
+
+        if (! $courseId) {
+            return;
+        }
+
+        foreach ($this->lessons() as $index => $lesson) {
+            $values = [
+                'title' => $lesson['title'],
+                'content' => $lesson['content'],
+                'video_url' => $lesson['video_url'],
+                'duration_seconds' => $lesson['duration_seconds'],
+                'position' => $index + 1,
+                'is_preview' => $index === 0,
+                'updated_at' => now(),
+            ];
+
+            $query = DB::table('lessons')
+                ->where('course_id', $courseId)
+                ->where('slug', $lesson['slug']);
+
+            if ($query->exists()) {
+                $query->update($values);
+
+                continue;
+            }
+
+            DB::table('lessons')->insert([
+                'course_id' => $courseId,
+                'slug' => $lesson['slug'],
+                ...$values,
+                'created_at' => now(),
+            ]);
+        }
+    }
+
+    public function down(): void
+    {
+        $courseId = DB::table('courses')
+            ->where('slug', 'cybersecurity-foundations')
+            ->value('id');
+
+        if (! $courseId) {
+            return;
+        }
+
+        foreach (range(1, 6) as $position) {
+            DB::table('lessons')
+                ->where('course_id', $courseId)
+                ->where('slug', "lesson-{$position}")
+                ->update([
+                    'title' => "الدرس {$position}",
+                    'content' => 'محتوى الدرس وخطوات التطبيق العملي.',
+                    'video_url' => null,
+                    'duration_seconds' => 720,
+                    'position' => $position,
+                    'is_preview' => $position === 1,
+                    'updated_at' => now(),
+                ]);
+        }
+    }
+
+    private function lessons(): array
+    {
+        return [
             [
                 'slug' => 'lesson-1',
                 'title' => 'مبادئ الأمن السيبراني والتشفير',
@@ -53,61 +117,5 @@ class CourseSeeder extends Seeder
                 'duration_seconds' => 840,
             ],
         ];
-
-        $courses = [
-            ['أساسيات HTML وCSS', 'html-css-foundations', 'web', 'beginner', 480],
-            ['JavaScript من الصفر', 'javascript-from-zero', 'frontend', 'beginner', 840],
-            ['React للتطبيقات الحديثة', 'modern-react-applications', 'frontend', 'intermediate', 1080],
-            ['واجهات Laravel API', 'laravel-api-development', 'backend', 'intermediate', 960],
-            ['الخوارزميات وهياكل البيانات', 'algorithms-data-structures', 'computer-science', 'intermediate', 900],
-            ['قواعد البيانات وSQL', 'databases-and-sql', 'databases', 'beginner', 720],
-            ['أساسيات الأمن السيبراني', 'cybersecurity-foundations', 'cybersecurity', 'beginner', 780],
-            ['Docker وعمليات DevOps', 'docker-devops', 'devops', 'intermediate', 660],
-            ['الحوسبة السحابية', 'cloud-computing', 'cloud', 'beginner', 600],
-            ['تطوير تطبيقات الهاتف', 'mobile-app-development', 'mobile', 'intermediate', 840],
-            ['اختبار البرمجيات وضمان الجودة', 'software-testing-qa', 'testing', 'intermediate', 600],
-            ['مشروع Full Stack تطبيقي', 'practical-full-stack-project', 'projects', 'advanced', 1320],
-        ];
-
-        foreach ($courses as [$title, $slug, $category, $level, $duration]) {
-            $course = Course::updateOrCreate(
-                ['slug' => $slug],
-                [
-                    'title' => $title,
-                    'description' => 'دورة تطبيقية منظمة تجمع الشرح المركز والتمارين والمشروع العملي.',
-                    'category' => $category,
-                    'level' => $level,
-                    'duration_minutes' => $duration,
-                    'published' => true,
-                ],
-            );
-
-            $lessons = $slug === 'cybersecurity-foundations'
-                ? $cybersecurityLessons
-                : array_map(
-                    static fn (int $position): array => [
-                        'slug' => "lesson-{$position}",
-                        'title' => "الدرس {$position}",
-                        'content' => 'محتوى الدرس وخطوات التطبيق العملي.',
-                        'video_url' => null,
-                        'duration_seconds' => 720,
-                    ],
-                    range(1, 6),
-                );
-
-            foreach ($lessons as $index => $lesson) {
-                $course->lessons()->updateOrCreate(
-                    ['slug' => $lesson['slug']],
-                    [
-                        'title' => $lesson['title'],
-                        'content' => $lesson['content'],
-                        'video_url' => $lesson['video_url'],
-                        'duration_seconds' => $lesson['duration_seconds'],
-                        'position' => $index + 1,
-                        'is_preview' => $index === 0,
-                    ],
-                );
-            }
-        }
     }
-}
+};

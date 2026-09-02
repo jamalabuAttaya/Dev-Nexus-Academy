@@ -5350,7 +5350,6 @@ footer {
   .resource-workspace,
   .watch-stage,
   .catalog-panel,
-  .library-shell,
   .roadmap-explorer {
     animation: nexusReveal both;
     animation-timeline: view();
